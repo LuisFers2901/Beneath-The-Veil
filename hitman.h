@@ -6,30 +6,26 @@
 #include <QTimer>
 #include <QPixmap>
 #include <QPainter>
-
+#include <QKeyEvent>
+#include <entities.h>
 
 
 class HitMan : public QObject, public QGraphicsItem
 {
     Q_OBJECT
+
 public:
-    explicit HitMan(QObject *parent = nullptr);
 
-    QTimer *Timer;
-    QPixmap *PixMap;
-
-    float Rows, Columns, Width, Height;
-
-    QRectF boundingRect() const;
-
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void keyPressEvent(QKeyEvent *evento, Entities *Entity);
+    void MoveUp(Entities *Entity);
+    void MoveDown(Entities *Entity);
+    void MoveLeft(Entities *Entity);
+    void MoveRight(Entities *Entity);
 
 
 signals:
 
 public slots:
-
-    void RefreshSprite();
 
 };
 

@@ -1,6 +1,7 @@
 #include "widget.h"
 #include "ui_widget.h"
 
+
 Widget::Widget(QWidget *parent):
     QWidget(parent),
     ui(new Ui::Widget)
@@ -12,16 +13,13 @@ Widget::Widget(QWidget *parent):
     y = Desktop.y();
     Width = Desktop.width();
     Height = Desktop.height();
+    showFullScreen();
 
-    scene = new QGraphicsScene(x, y, Width, Height);
+    Maps = new QGraphicsScene();
+    ui->graphicsView->setScene(Maps);
+    Maps->setSceneRect(x, y, ui->graphicsView->width()-2, ui->graphicsView->height()-2);
 
-    ui->graphicsView->setScene(scene);
-
-    Slayer = new HitMan();
-
-    scene->addItem(Slayer);
-
-    Slayer->setPos(960, 540);
+    Slayer = new Entities(100,100,120,130,3,65);
 
 }
 
@@ -29,6 +27,9 @@ Widget::~Widget()
 {
     delete ui;
 }
+
+
+
 
 
 

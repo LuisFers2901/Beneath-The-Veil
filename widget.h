@@ -10,12 +10,17 @@
 #include <QDebug>
 #include <QGraphicsScene>
 
+#include <hitman.h>
+#include <entities.h>
+
 #include "hitman.h"
+#include "entities.h"
 
 
 namespace Ui {
 class Widget;
 }
+
 
 class Widget : public QWidget
 
@@ -23,16 +28,17 @@ class Widget : public QWidget
     Q_OBJECT
 
 public:
-    explicit Widget(QWidget *parent = nullptr);
+    Widget(QWidget *parent = nullptr);
     ~Widget();
 
 private:
     Ui::Widget *ui;
-    QGraphicsScene *scene;
+    QGraphicsScene *Maps;
 
-    HitMan *Slayer;
+    Entities *Slayer;
 
-    float x, y, Width, Height;
+    int x, y, Width, Height;
+
 
 
 };

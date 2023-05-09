@@ -1,40 +1,42 @@
 #include "hitman.h"
+#include "entities.h"
 
-HitMan::HitMan(QObject *parent) : QObject(parent)
+void HitMan::keyPressEvent(QKeyEvent *evento, Entities *Entity)
 {
-    Timer = new QTimer();
-    Timer->start(500);
-
-    Rows = 0;
-    Columns = 0;
-
-    Width = 120;
-    Height = 130;
-
-    PixMap = new QPixmap(":/Images/SpriteExample2.png");
-
-    connect(Timer,&QTimer::timeout,this,&HitMan::RefreshSprite);
-
-}
-
-QRectF HitMan::boundingRect() const
-{
-    return QRectF((-Width)/2, (-Height)/2, Width, Height);
-
-}
-
-void HitMan::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{
-    painter->drawPixmap((-Width)/2, (-Height)/2, *PixMap, Columns, 0, Width, Height);
-}
-
-void HitMan::RefreshSprite()
-{
-    Columns += 120;
-
-    if (Columns >= 360){
-        Columns = 0;
+    if (evento->key() == Qt::Key_W || evento->key() == Qt::Key_Up){
+        MoveUp(Entity);
     }
-    this->update((-Width)/2, (-Height)/2, Width, Height);
+    else if (evento->key() == Qt::Key_S || evento->key() == Qt::Key_Down){
+        MoveDown(Entity);
+    }
+    else if (evento->key() == Qt::Key_A || evento->key() == Qt::Key_Left){
+        MoveLeft(Entity);
+    }
+    else if (evento->key() == Qt::Key_D || evento->key() == Qt::Key_Right){
+        MoveRight(Entity);
+    }
 }
 
+void HitMan::MoveUp(Entities *Entity)
+{
+    Entity->PosY = Entity->PosY - Entity->Speed;
+    Entity->setPos(Entity->PosX, Entity->PosY);
+}
+
+void HitMan::MoveDown(Entities *Entity)
+{
+    Entity->PosY = Entity->PosY + Entity->Speed;
+    Entity->setPos(Entity->PosX, Entity->PosY);
+}
+
+void HitMan::MoveLeft(Entities *Entity)
+{
+    Entity->PosX = Entity->PosX - Entity->Speed;
+    Entity->setPos(Entity->PosX, Entity->PosY);
+}
+
+void HitMan::MoveRight(Entities *Entity)
+{
+    Entity->PosX = Entity->PosX + Entity->Speed;
+    Entity->setPos(Entity->PosX, Entity->PosY);
+}
