@@ -10,17 +10,13 @@
 #include <QDebug>
 #include <QGraphicsScene>
 
-#include <hitman.h>
-#include <entities.h>
-
 #include "hitman.h"
 #include "entities.h"
+#include "delimiters.h"
 
-
-namespace Ui {
-class Widget;
-}
-
+QT_BEGIN_NAMESPACE
+namespace Ui { class Widget; }
+QT_BEGIN_NAMESPACE
 
 class Widget : public QWidget
 
@@ -35,7 +31,7 @@ private:
     Ui::Widget *ui;
     QGraphicsScene *Maps;
 
-    Entities *Slayer;
+    Delimiters *Slayer;
 
     int x, y, Width, Height;
 

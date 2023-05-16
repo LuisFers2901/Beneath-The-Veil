@@ -15,9 +15,9 @@ QRectF Delimiters::boundingRect() const
 
 void Delimiters::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    painter->setBrush(Qt::transparent);
-    painter->setPen(Qt::NoPen);
+    //painter->setBrush(Qt::transparent);
+    //painter->setPen(Qt::NoPen);
 
-    //painter->setBrush(Qt::blue);
+    painter->setBrush(Qt::blue);
     painter->drawRect(boundingRect());
 }

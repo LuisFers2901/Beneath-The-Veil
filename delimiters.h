@@ -5,8 +5,9 @@
 #include <QGraphicsItem>
 #include <QPainter>
 
-class Delimiters
+class Delimiters: public QObject, public QGraphicsItem
 {
+    Q_OBJECT
 public:
 
     int WidthDelimiters, HeightDelimiters, X, Y;

@@ -15,7 +15,9 @@ public:
     QTimer *TimerSprite;
     QPixmap *PixMap;
     int X, Y,NumSprites, PosX, PosY, Speed, Columns, WidthSprite, HeightSprite, Timer;
-    Entities(int PosX, int PosY, int WidthSprite, int HeightSprite, int Speed, int Timer); //Inicializa las varaibles necesarias para crear la entidad
+    const QString ImagePath;
+    Entities();
+    Entities(int PosX, int PosY, int WidthSprite, int HeightSprite, int Speed, int Timer, const QString& ImagePath); //Inicializa las varaibles necesarias para crear la entidad
     Entities(QObject *parent = nullptr);        //Conexion que anima el sprite en pantalla
     QRectF boundingRect() const;                //Genera la hitbox de la entidad
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget, const QString& ImagePath, int X, int Y, int NumSprites); //Toma la imagen e indiica la posicion y tamano del sprite
@@ -24,7 +26,7 @@ signals:
 
 public slots:
 
-    void RefreshSprite();       //Se encarga de actualizar el srpite constantemente
+    void RefreshSprite();       //Se encarga de actualizar el sprite constantemente
 
 };
 
