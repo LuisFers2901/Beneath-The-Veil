@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -9,17 +9,21 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    delimiters.cpp \
+    barriers.cpp \
     entities.cpp \
     hitman.cpp \
+    listbarriers.cpp \
     main.cpp \
-    widget.cpp
+    widget.cpp \
+    windowslevels.cpp
 
 HEADERS += \
-    delimiters.h \
+    barriers.h \
     entities.h \
     hitman.h \
-    widget.h
+    listbarriers.h \
+    widget.h \
+    windowslevels.h
 
 FORMS += \
     widget.ui
@@ -30,8 +34,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    Sounds.qrc \
     pictures.qrc
 
 DISTFILES += \
+    Images/Barreras invisible.png \
+    Images/Corredor Temporal.png \
+    Images/Menu Temp.png \
+    Images/Pantalla Inicio Temporal.png \
     Images/SpriteExample.png \
     Images/SpriteExample2.png

@@ -2,5 +2,13 @@
     <qresource prefix="/">
         <file>Images/SpriteExample.png</file>
         <file>Images/SpriteExample2.png</file>
+        <file>Images/Barreras invisible.png</file>
+        <file>Images/Corredor Temporal.png</file>
+        <file>Images/Menu Temp.png</file>
+        <file>Images/Pantalla Inicio Temporal.png</file>
+        <file>Images/Hanitacion Hermana temp.png</file>
+        <file>Images/Cocina Temporal.png</file>
+        <file>Images/Vestibulo temporal.png</file>
+        <file>Images/Laboratorio temporal.png</file>
     </qresource>
 </RCC>
