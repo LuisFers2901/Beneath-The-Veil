@@ -21,6 +21,7 @@ public:
     void MoveDown(Entities *Entity);
     void MoveLeft(Entities *Entity);
     void MoveRight(Entities *Entity);
+    //void Persecution()
 
 
 signals:

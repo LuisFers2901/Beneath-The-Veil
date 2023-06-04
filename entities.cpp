@@ -87,7 +87,7 @@ void Entities::MoveEntity(int Option)
         connect(TimerMove,&QTimer::timeout,this,&Entities::MoveUp);
         break;
     case 2:
-        connect(TimerMove,&QTimer::timeout,this,&Entities::RosaAlCuadrado);
+        connect(TimerMove,&QTimer::timeout,this,&Entities::MoveDown);
         break;
     case 3:
         connect(TimerMove,&QTimer::timeout,this,&Entities::MoveLeft);
@@ -151,23 +151,26 @@ void Entities::MoveRight()
     PosX = PosX + Speed;
     SpriteOp = 4;
     setPos(PosX, PosY);
+}
 
-    r = 200*(sin(5*theta));
+void Entities::Circulo()
+{
+    r = sin(theta);
 
     if (theta == 360){
         theta == 0;
     }
     else{
-        theta++;
+        theta = theta + 0.001;
     }
 
-    double x = 500+ r*cos(theta);
+    double x = 500 + r*cos(theta);
     double y = 500 + r*sin(theta);
-    qDebug() << x << "----" << y;
-}
 
-void Entities::Circulo()
-{
+    PosX = x;
+    PosY = y;
+
+    setPos(PosX,PosY);
 
 }
 
@@ -182,14 +185,14 @@ void Entities::Rosa()
         theta = theta + 0.001;
     }
 
-    double x = 500+ r*cos(theta);
+    double x = 500 + r*cos(theta);
     double y = 500 + r*sin(theta);
 
     PosX = x;
     PosY = y;
 
     setPos(PosX,PosY);
-    qDebug() << x << "----" << y;
+
 }
 
 void Entities::RosaAlCuadrado()
@@ -210,7 +213,7 @@ void Entities::RosaAlCuadrado()
     PosY = y;
 
     setPos(PosX,PosY);
-    qDebug() << x << "----" << y;
+
 }
 
 void Entities::Dead(int Option)
@@ -220,6 +223,11 @@ void Entities::Dead(int Option)
     disconnect(TimerSprite,&QTimer::timeout,this,&Entities::RefreshSprite);
     TimerSprite->start(200);
     connect(TimerSprite,&QTimer::timeout,this,&Entities::RefreshSprite);
+}
+
+void Entities::Persecution(int PosXPacMan, int PosYPacMan, int PosXGhost, int PosYGhost, Entities *Entity)
+{
+
 }
 
 void Entities::RefreshSprite()

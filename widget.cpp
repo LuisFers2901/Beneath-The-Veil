@@ -33,13 +33,53 @@ Widget::Widget(QWidget *parent):
     Hermana = new Entities(350, 350, 100, 150, 10, 3, 65, 5, nullptr);
     Mama = new Entities(1350, 520, 100, 150, 10, 4, 65, 5, nullptr);
     Papa = new Entities(370, 810, 100, 150, 10, 5, 65, 5, nullptr);
-    Chemms = new Entities(1640, 440, 100, 150, 10, 6, 65, 5, nullptr);
+    Cheems = new Entities(1640, 440, 100, 150, 10, 6, 65, 5, nullptr);
+    Brazo = new Entities(550, 710, 20, 10, 10, 2, 65, 5, nullptr);
+
+    BarradeVida = new QProgressBar(nullptr);
+    BarradeVida->setRange(0,100);
+    BarradeVida->setValue(100);
+    BarradeVida->setGeometry(710, 75, 500,50);
+    BarradeVida->setTextVisible(false);
+    BarradeVida->setStyleSheet("QProgressBar {"
+                               "background-color: transparent;"
+                               "color: white;"
+                               "border: none;"
+                               "}"
+                               "QProgressBar::chunk {"
+                               "background-color: red;"
+                               "}"
+                               "QProgressBar::chunk:disabled {"
+                               "background-color: transparent;"
+                               "}");
+
+    RelationshipName = new QLabel("Rehtorb", nullptr);
+    RelationshipName->setGeometry(710, 25, 500,50);
+    RelationshipName->setStyleSheet("color: black;"
+                                "font-weight: bold;"
+                                "background-color: transparent;"
+                                "font-size: 25px;");
+    RelationshipName->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+    Letter = new QLabel("“Recuerdo jugar con el tren de mi hermano, especialmente\ncuando sacaba de paseo a la muñeca de mi hermana”", nullptr);
+    Letter->setGeometry(260, 90, 1400, 900);
+    Letter->setStyleSheet("color: black;"
+                        "font-weight: bold;"
+                        "background-color: transparent;"
+                        "font-size: 50px;");
+    Letter->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+
+    MainMenu->addWidget(RelationshipName);
+    MainMenu->addWidget(BarradeVida);
+    BarradeVida->setVisible(false);
+    RelationshipName->setVisible(false);
 
     BarriersMaps.ObjectsMap();
     MainMenu->setBackgroundBrush(*BarriersMaps.Maps[1]);
     MainMenu->addItem(Personaje);
     MainMenu->addItem(BarriersMaps.Door[0]);
-
+    MainMenu->addItem(Brazo);
     for (int i = 0; i < 4; i++){
         MainMenu->addItem(BarriersMaps.Paredes[i]);
     }
@@ -59,22 +99,22 @@ void Widget::keyPressEvent(QKeyEvent *evento)
 {
     //qDebug() << "X: " << Personaje->PosX << "   Y: " << Personaje->PosY << "\n";
 
-    if (evento->key() == Qt::Key_W || evento->key() == Qt::Key_Up){
+    if (EnabledKeys == true && (evento->key() == Qt::Key_W || evento->key() == Qt::Key_Up)){
 //        Personaje->MoveUp();
         Personaje->MoveEntity(1);
         Option = 1;
     }
-    else if (evento->key() == Qt::Key_S || evento->key() == Qt::Key_Down){
+    else if (EnabledKeys == true && (evento->key() == Qt::Key_S || evento->key() == Qt::Key_Down)){
 //        Personaje->MoveDown();
         Personaje->MoveEntity(2);
         Option = 2;
     }
-    else if (evento->key() == Qt::Key_A || evento->key() == Qt::Key_Left){
+    else if (EnabledKeys == true && (evento->key() == Qt::Key_A || evento->key() == Qt::Key_Left)){
 //        Personaje->MoveLeft();
         Personaje->MoveEntity(3);
         Option = 3;
     }
-    else if (evento->key() == Qt::Key_D || evento->key() == Qt::Key_Right){
+    else if (EnabledKeys == true && (evento->key() == Qt::Key_D || evento->key() == Qt::Key_Right)){
 //        Personaje->MoveRight();
         Personaje->MoveEntity(4);
         Option = 4;
@@ -86,6 +126,14 @@ void Widget::keyPressEvent(QKeyEvent *evento)
     else{
         Interaction = false;
     }
+
+
+    if (EnabledKeys == true && evento->key() == Qt::Key_K){
+        Attack = true;
+    }
+    else{
+        Attack = false;
+    }
 }
 
 void Widget::EvalueCollision()
@@ -96,6 +144,9 @@ void Widget::EvalueCollision()
         }
     }
 
+    Brazo->X = Personaje->PosX + 35;
+    Brazo->Y = Personaje->PosY;
+    Brazo->setPos(Brazo->X, Brazo->Y);
 
     switch (Level) {
     case 1:     //Carcel
@@ -189,6 +240,7 @@ void Widget::EvalueCollision()
             Level2 = true;
             MainMenu->removeItem(BarriersMaps.Objetos[0]);
 
+
         }
 
         break;
@@ -272,7 +324,7 @@ void Widget::EvalueCollision()
 
             MainMenu->setBackgroundBrush(*BarriersMaps.Maps[6]);
             MainMenu->addItem(BarriersMaps.Door[9]);
-            MainMenu->addItem(Chemms);
+            MainMenu->addItem(Cheems);
             if (Level6 == false){
                 MainMenu->addItem(BarriersMaps.Objetos[4]);
             }
@@ -333,9 +385,10 @@ void Widget::EvalueCollision()
             MainMenu->addItem(BarriersMaps.Door[5]);
             MainMenu->addItem(BarriersMaps.Door[6]);
             MainMenu->addItem(BarriersMaps.Door[7]);
-            MainMenu->addItem(Mama);
             MainMenu->removeItem(BarriersMaps.Door[9]);
-            MainMenu->removeItem(Chemms);
+            MainMenu->addItem(Mama);
+            MainMenu->removeItem(Cheems);
+            MainMenu->removeItem(BarriersMaps.Objetos[4]);
             Personaje->PosX = 1800;
             Personaje->setPos(Personaje->PosX, Personaje->PosY);
             Level = 4;
@@ -352,6 +405,146 @@ void Widget::EvalueCollision()
 
 
     }
+
+    if (Level == 2 && Level2 == false){
+
+        if (Life == 100){
+            BarradeVida->setValue(Life);
+            BarradeVida->setVisible(true);
+            RelationshipName->setVisible(true);
+        }
+        else if (Life == 0){
+            BarradeVida->setVisible(false);
+            RelationshipName->setVisible(false);
+            Level2 = true;
+            Life = 100;
+        }
+
+        if (Personaje->collidesWithItem(Hermano)){
+            Personaje->StopEntity(Option);
+        }
+        if (Life > 0 && Brazo->collidesWithItem(Hermano) && Attack == true){
+            Life -= 10;
+            BarradeVida->setValue(Life);
+            qDebug() << Life << "\n";
+            Attack = false;
+        }
+    }
+
+
+    if (Level == 3 && Level3 == false){
+
+        if (Life == 100){
+            BarradeVida->setValue(Life);
+            BarradeVida->setVisible(true);
+            RelationshipName->setText("Retsis");
+            RelationshipName->setVisible(true);
+        }
+        else if (Life == 0){
+            BarradeVida->setVisible(false);
+            RelationshipName->setVisible(false);
+            Level3 = true;
+            Life = 100;
+        }
+
+        if (Personaje->collidesWithItem(Hermana)){
+            Personaje->StopEntity(Option);
+        }
+        if (Life > 0 && Brazo->collidesWithItem(Hermana) && Attack == true){
+            Life -= 10;
+            BarradeVida->setValue(Life);
+            qDebug() << Life << "\n";
+            Attack = false;
+        }
+    }
+
+    if (Level == 4 && Level4 == false){
+
+        if (Life == 100){
+            BarradeVida->setValue(Life);
+            BarradeVida->setVisible(true);
+            RelationshipName->setText("Rehtom");
+            RelationshipName->setVisible(true);
+        }
+        else if (Life == 0){
+            BarradeVida->setVisible(false);
+            RelationshipName->setVisible(false);
+            Level4 = true;
+            Life = 100;
+        }
+
+        if (Personaje->collidesWithItem(Mama)){
+            Personaje->StopEntity(Option);
+        }
+        if (Life > 0 && Brazo->collidesWithItem(Mama) && Attack == true){
+            Life -= 10;
+            BarradeVida->setValue(Life);
+            qDebug() << Life << "\n";
+            Attack = false;
+        }
+    }
+
+    if (Level == 5 && Level5 == false){
+
+        if (Life == 100){
+            BarradeVida->setValue(Life);
+            BarradeVida->setVisible(true);
+            RelationshipName->setText("Rehtaf");
+            RelationshipName->setVisible(true);
+        }
+        else if (Life == 0){
+            BarradeVida->setVisible(false);
+            RelationshipName->setVisible(false);
+            Level5 = true;
+            Life = 100;
+        }
+
+        if (Personaje->collidesWithItem(Papa)){
+            Personaje->StopEntity(Option);
+        }
+        if (Life > 0 && Brazo->collidesWithItem(Papa) && Attack == true){
+            Life -= 10;
+            BarradeVida->setValue(Life);
+            qDebug() << Life << "\n";
+            Attack = false;
+        }
+    }
+
+    if (Level == 6 && Level6 == false){
+
+        if (Life == 100){
+            BarradeVida->setValue(Life);
+            BarradeVida->setVisible(true);
+            RelationshipName->setText("Smeehc");
+            RelationshipName->setVisible(true);
+        }
+        else if (Life == 0){
+            BarradeVida->setVisible(false);
+            RelationshipName->setVisible(false);
+            Level6 = true;
+            Life = 100;
+        }
+
+        if (Personaje->collidesWithItem(Cheems)){
+            Personaje->StopEntity(Option);
+        }
+        if (Life > 0 && Brazo->collidesWithItem(Cheems) && Attack == true){
+            Life -= 10;
+            BarradeVida->setValue(Life);
+            qDebug() << Life << "\n";
+            Attack = false;
+        }
+    }
+
+    if (EnabledKeys == false && Interaction == true){
+        EnabledKeys = true;
+        if (Letter->isVisible()){
+            Letter->setVisible(false);
+        }
+    }
+
+
+
 
 
 }

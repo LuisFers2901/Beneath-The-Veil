@@ -35,8 +35,8 @@ public:
     void Circulo();
     void Rosa();
     void RosaAlCuadrado();
-    void
     void Dead(int Option);
+    void Persecution(int PosXPacMan, int PosYPacMan, int PosXGhost, int PosYGhost, Entities *Entity);
 
 public slots:
 

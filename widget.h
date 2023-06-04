@@ -18,6 +18,10 @@
 #include <random>
 #include <QSoundEffect>
 #include <QMediaPlayer>
+#include <QProgressBar>
+
+#include <chrono>
+#include <thread>
 
 #include "hitman.h"
 #include "entities.h"
@@ -57,7 +61,8 @@ private:
     Entities *Hermana;
     Entities *Mama;
     Entities *Papa;
-    Entities *Chemms;
+    Entities *Cheems;
+    Entities *Brazo;
 
     bool Level1 = true;
     bool Level2 = false;
@@ -76,11 +81,18 @@ private:
     bool    KeyLevel7 = false;
 
     bool Interaction = false;
+    bool Attack = false;
+    bool EnabledKeys = true;
 
     ListBarriers BarriersMaps;
 
     QList<QGraphicsItem*> ListObjectsScene;
 
+    int Life = 100;
+
+    QProgressBar *BarradeVida;
+    QLabel *RelationshipName;
+    QLabel *Letter;
 
 
     int DesktopX, DesktopY, DesktopWidth, DesktopHeight;
