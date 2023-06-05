@@ -16,12 +16,7 @@ class HitMan : public QObject, public QGraphicsItem
 
 public:
 
-    void keyPressEvent(QKeyEvent *evento, Entities *Entity);
-    void MoveUp(Entities *Entity);
-    void MoveDown(Entities *Entity);
-    void MoveLeft(Entities *Entity);
-    void MoveRight(Entities *Entity);
-    //void Persecution()
+
 
 
 signals:

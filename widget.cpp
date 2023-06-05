@@ -30,10 +30,15 @@ Widget::Widget(QWidget *parent):
 
     Personaje = new Entities(450, 700, 50, 50, 10, 5, 65, 5, nullptr);
     Hermano = new Entities(1490, 440, 100, 150, 10, 2, 65, 5, nullptr);
+    Family.push_back(Hermano);
     Hermana = new Entities(350, 350, 100, 150, 10, 3, 65, 5, nullptr);
+    Family.push_back(Hermana);
     Mama = new Entities(1350, 520, 100, 150, 10, 4, 65, 5, nullptr);
+    Family.push_back(Mama);
     Papa = new Entities(370, 810, 100, 150, 10, 5, 65, 5, nullptr);
+    Family.push_back(Papa);
     Cheems = new Entities(1640, 440, 100, 150, 10, 6, 65, 5, nullptr);
+    Family.push_back(Cheems);
     Brazo = new Entities(550, 710, 20, 10, 10, 2, 65, 5, nullptr);
 
     BarradeVida = new QProgressBar(nullptr);
@@ -86,7 +91,12 @@ Widget::Widget(QWidget *parent):
 
     ListObjectsScene = MainMenu->items();
 
+    Levelspa = Levels(MainMenu);
+
+
     connect(Personaje->TimerMove, &QTimer::timeout, this, &Widget::EvalueCollision);
+
+
 
 }
 
@@ -103,6 +113,7 @@ void Widget::keyPressEvent(QKeyEvent *evento)
 //        Personaje->MoveUp();
         Personaje->MoveEntity(1);
         Option = 1;
+        Levelspa.GameLevels(0);
     }
     else if (EnabledKeys == true && (evento->key() == Qt::Key_S || evento->key() == Qt::Key_Down)){
 //        Personaje->MoveDown();
@@ -144,9 +155,15 @@ void Widget::EvalueCollision()
         }
     }
 
-    Brazo->X = Personaje->PosX + 35;
+    if(Option == 3){
+        Brazo->X = Personaje->PosX - 35;
+    }
+    else if (Option == 4){
+        Brazo->X = Personaje->PosX + 35;
+    }
     Brazo->Y = Personaje->PosY;
     Brazo->setPos(Brazo->X, Brazo->Y);
+
 
     switch (Level) {
     case 1:     //Carcel
@@ -238,9 +255,20 @@ void Widget::EvalueCollision()
 
         if (Personaje->collidesWithItem(BarriersMaps.Objetos[0]) && Interaction == true && Level2 == false){
             Level2 = true;
+            MainMenu->addWidget(Letter);
             MainMenu->removeItem(BarriersMaps.Objetos[0]);
+            EnabledKeys = false;
+            Interaction = false;
 
+        }
 
+        if (EnabledKeys == false && Level2 == true){
+            if (Interaction == true){
+                EnabledKeys = true;
+                Letter->setVisible(false);
+                Letter->setText("“Recuerdo el día que mis hermanos salieron, como me aburrí, \nmama jugó conmigo a la cocina y me preparo un plato especial”");
+                //Cambiar letter po una imagen del escrito y anadir audio de nino llorando desesperadamente
+            }
         }
 
         break;
@@ -268,8 +296,17 @@ void Widget::EvalueCollision()
         if (Personaje->collidesWithItem(BarriersMaps.Objetos[1]) && Interaction == true && Level3 == false){
             Level3 = true;
             MainMenu->removeItem(BarriersMaps.Objetos[1]);
-//            QSoundEffect* SoundEffect = BarriersMaps.Sounds[0];
-//            SoundEffect->play();
+            Letter->setVisible(true);
+            EnabledKeys = false;
+            Interaction = false;
+        }
+
+        if (EnabledKeys == false && Level3 == true){
+            if (Interaction == true){
+                EnabledKeys = true;
+                Letter->setVisible(false);
+                //Cambiar letter po una imagen del escrito y anadir audio de nino llorando desesperadamente
+            }
         }
         break;
 

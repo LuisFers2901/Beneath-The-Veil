@@ -23,10 +23,10 @@
 #include <chrono>
 #include <thread>
 
-#include "hitman.h"
 #include "entities.h"
 #include "barriers.h"
 #include "listbarriers.h"
+#include "levels.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -88,6 +88,8 @@ private:
 
     QList<QGraphicsItem*> ListObjectsScene;
 
+    QList<Entities*> Family;
+
     int Life = 100;
 
     QProgressBar *BarradeVida;
@@ -97,6 +99,8 @@ private:
 
     int DesktopX, DesktopY, DesktopWidth, DesktopHeight;
     int UIWidth, UIHeight;
+
+    Levels Levelspa;
 
 
 

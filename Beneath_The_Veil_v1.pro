@@ -11,19 +11,19 @@ CONFIG += c++17
 SOURCES += \
     barriers.cpp \
     entities.cpp \
-    hitman.cpp \
+    family.cpp \
+    levels.cpp \
     listbarriers.cpp \
     main.cpp \
-    widget.cpp \
-    windowslevels.cpp
+    widget.cpp
 
 HEADERS += \
     barriers.h \
     entities.h \
-    hitman.h \
+    family.h \
+    levels.h \
     listbarriers.h \
-    widget.h \
-    windowslevels.h
+    widget.h
 
 FORMS += \
     widget.ui
