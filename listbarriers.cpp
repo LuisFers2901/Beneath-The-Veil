@@ -91,7 +91,6 @@ void ListBarriers::ObjectsMap()
 //        QBrush* Brush = new QBrush(*ScaledImage);                                                     //Descomentar esta funcion y comentar la siguiente linea
         QBrush* Brush = new QBrush(*Image);
         Maps.push_back(Brush);
-        qDebug() << *i << "\n";
     }
 
 

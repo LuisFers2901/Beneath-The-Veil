@@ -17,14 +17,15 @@ Entities::Entities(int PosX, int PosY, int WidthSprite, int HeightSprite, int Sp
     this->PosYPixMap = 0;
     StartPosXPixMap = 0;
     this->Option = 4;
-
+    NumberSprite = 6;
     TimerSprite = new QTimer();
     TimerSprite->start(TimerS);
     TimerMove = new QTimer();
     TimerMove->start(TimerM);
-    PixMap = new QPixmap(":/Images/Sprite-WithoutBackground.png");
+    PixMap = new QPixmap(":/Images/Esto esta melo/Spritess.png");
     setPos(PosX, PosY);
     connect(TimerSprite,&QTimer::timeout,this,&Entities::RefreshSprite);
+
 
 }
 
@@ -35,40 +36,34 @@ QRectF Entities::boundingRect() const
 
 void Entities::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-
+    //80 x 96
     //    painter->setBrush(Qt::transparent);
     //    painter->setPen(Qt::NoPen);
     switch (Sprite) {
     case 1:
-        painter->setBrush(Qt::blue);
-        painter->drawRect(boundingRect());
+        PosYPixMap = 0;
         break;
     case 2:
-        painter->setBrush(Qt::red);
-        painter->drawRect(boundingRect());
-
+        PosYPixMap = (96 * 1);
         break;
     case 3:
-        painter->setBrush(Qt::magenta);
-        painter->drawRect(boundingRect());
-
+        PosYPixMap = (96 * 2);
         break;
     case 4:
-        painter->setBrush(Qt::darkMagenta);
-        painter->drawRect(boundingRect());
-
+        PosYPixMap = (96 * 3);
         break;
     case 5:
-        painter->setBrush(Qt::darkGray);
-        painter->drawRect(boundingRect());
-
+        PosYPixMap = (96 * 4);
         break;
     case 6:
-        painter->setBrush(Qt::darkGreen);
-        painter->drawRect(boundingRect());
-
+        PosYPixMap = (96 * 5);
         break;
     }
+
+
+
+
+    painter->drawPixmap((-WidthSprite)/2, (-HeightSprite)/2, *PixMap, PosXPixMap, PosYPixMap, WidthSprite, HeightSprite);
 
 }
 
@@ -81,9 +76,6 @@ void Entities::MoveEntity(int Option)
     disconnect(TimerMove, &QTimer::timeout, this, &Entities::MoveDown);
     disconnect(TimerMove, &QTimer::timeout, this, &Entities::MoveLeft);
     disconnect(TimerMove, &QTimer::timeout, this, &Entities::MoveRight);
-//    disconnect(TimerMove, &QTimer::timeout, this, &Entities::Circulo);
-//    disconnect(TimerMove, &QTimer::timeout, this, &Entities::Rosa);
-//    disconnect(TimerMove, &QTimer::timeout, this, &Entities::RosaAlCuadrado);
 
     switch (Option) {
     case 1:
@@ -98,15 +90,6 @@ void Entities::MoveEntity(int Option)
     case 4:
         connect(TimerMove,&QTimer::timeout,this,&Entities::MoveRight);
         break;
-//    case 5:
-//        connect(TimerMove,&QTimer::timeout,this,&Entities::Circulo);
-//        break;
-//    case 6:
-//        connect(TimerMove,&QTimer::timeout,this,&Entities::Rosa);
-//        break;
-//    case 7:
-//        connect(TimerMove,&QTimer::timeout,this,&Entities::RosaAlCuadrado);
-//        break;
     }
 
 }
@@ -134,15 +117,6 @@ void Entities::StopEntity(int Option)
         PosX = PosX - Speed;
         setPos(PosX, PosY);
         break;
-//    case 5:
-//        disconnect(TimerMove,&QTimer::timeout,this,&Entities::Circulo);
-//        break;
-//    case 6:
-//        disconnect(TimerMove,&QTimer::timeout,this,&Entities::Rosa);
-//        break;
-//    case 7:
-//        disconnect(TimerMove,&QTimer::timeout,this,&Entities::RosaAlCuadrado);
-//        break;
     }
 }
 
@@ -285,8 +259,8 @@ void Entities::Persecution(int PosXPacMan, int PosYPacMan, int PosXGhost, int Po
 
 void Entities::RefreshSprite()
 {
-    PosXPixMap += 16;
-    if (PosXPixMap >= (NumberSprite * 16) + StartPosXPixMap){
+    PosXPixMap += 80;
+    if (PosXPixMap >= (NumberSprite * 80) + StartPosXPixMap){
         PosXPixMap = StartPosXPixMap;
     }
     this->update((-WidthSprite)/2, (-HeightSprite)/2, WidthSprite, HeightSprite);

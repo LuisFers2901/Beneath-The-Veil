@@ -20,13 +20,7 @@ public:
 
     void ObjectsMap();
 
-
-
-    QList<QLabel*> Mensajes;
-
-    QList<Barriers*> Llaves;
     QList<Barriers*> Objetos;
-
     QList<Barriers*> Paredes;
     QList<Barriers*> Door;
     QList<QImage*> MapsImage;

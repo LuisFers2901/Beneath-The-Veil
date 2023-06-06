@@ -23,9 +23,9 @@ void Levels::GameLevels(int LevelSelect)
     RemoveElementsScene();
     OptionLevels.ObjectsMap();
 
-    for (int i = 0; i < 4; i++){
-        Scene->addItem(OptionLevels.Paredes[i]);
-    }
+//    for (int i = 0; i < 4; i++){
+//        Scene->addItem(OptionLevels.Paredes[i]);
+//    }
 
 
     switch (LevelSelect) {
@@ -74,7 +74,6 @@ void Levels::RemoveElementsScene()
         if(Item != Personaje){
             Item->setVisible(false);
         }
-
     }
 
 }
