@@ -5,6 +5,7 @@
 #include <QBrush>
 #include <QDebug>
 #include <QSoundEffect>
+#include <QLabel>
 
 #include "barriers.h"
 
@@ -18,6 +19,10 @@ public:
 
 
     void ObjectsMap();
+
+
+
+    QList<QLabel*> Mensajes;
 
     QList<Barriers*> Llaves;
     QList<Barriers*> Objetos;

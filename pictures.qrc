@@ -10,5 +10,22 @@
         <file>Images/Cocina Temporal.png</file>
         <file>Images/Vestibulo temporal.png</file>
         <file>Images/Laboratorio temporal.png</file>
+        <file>Images/IMGS/BADBro.png</file>
+        <file>Images/IMGS/BADDad.png</file>
+        <file>Images/IMGS/BADMom.png</file>
+        <file>Images/IMGS/BADSist.png</file>
+        <file>Images/IMGS/Bro.png</file>
+        <file>Images/IMGS/corredor.png</file>
+        <file>Images/IMGS/cosina.png</file>
+        <file>Images/IMGS/Dad.png</file>
+        <file>Images/IMGS/hall.png</file>
+        <file>Images/IMGS/hitman.png</file>
+        <file>Images/IMGS/lav.png</file>
+        <file>Images/IMGS/Mom.png</file>
+        <file>Images/IMGS/room.png</file>
+        <file>Images/IMGS/Sist.png</file>
+        <file>Images/IMGS/sisteroom.png</file>
+        <file>Images/IMGS/Special.png</file>
+        <file>Images/IMGS/text.png</file>
     </qresource>
 </RCC>

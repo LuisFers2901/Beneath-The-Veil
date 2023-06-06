@@ -7,6 +7,7 @@
 #include <QPixmap>
 #include <QPainter>
 #include <cmath>
+#include <random>
 
 
 class Entities: public QObject, public QGraphicsItem
@@ -17,7 +18,7 @@ public:
     QTimer *TimerSprite, *TimerMove;
 
     QPixmap *PixMap;
-    int X, Y, PosX, PosY, Speed, Columns, WidthSprite, HeightSprite;
+    int X, Y, PosX, PosY, Speed, Columns, WidthSprite, HeightSprite, RandomNum;
     int Sprite, TimerS, TimerM,PosXPixMap, PosYPixMap, Option, SpriteOp, StartPosXPixMap, NumberSprite;
     Entities(int PosX, int PosY, int WidthSprite, int HeightSprite, int Speed, int Sprite, int TimerS, int TimerM, QObject *parent); //Inicializa las varaibles necesarias para crear la entidad
     QRectF boundingRect() const;                //Genera la hitbox de la entidad
@@ -32,9 +33,11 @@ public:
     void MoveDown();
     void MoveLeft();
     void MoveRight();
-    void Circulo();
-    void Rosa();
-    void RosaAlCuadrado();
+    void RandomMove(Entities *Entity, int Option);
+    void Circulo(int PosXEntity, int PosYEntity);
+    void Rosa(int PosXEntity, int PosYEntity);
+    void RosaAlCuadrado(int PosXEntity, int PosYEntity);
+    void Lemniscata(int PosXEntity, int PosYEntity);
     void Dead(int Option);
     void Persecution(int PosXPacMan, int PosYPacMan, int PosXGhost, int PosYGhost, Entities *Entity);
 

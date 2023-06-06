@@ -27,6 +27,7 @@
 #include "barriers.h"
 #include "listbarriers.h"
 #include "levels.h"
+#include "family.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -63,6 +64,7 @@ private:
     Entities *Papa;
     Entities *Cheems;
     Entities *Brazo;
+    Entities *SpecialPower;
 
     bool Level1 = true;
     bool Level2 = false;
@@ -72,13 +74,13 @@ private:
     bool Level6 = false;
     bool Level7 = false;
 
-    bool    KeyLevel1 = true;
-    bool    KeyLevel2 = false;
-    bool    KeyLevel3 = false;
-    bool    KeyLevel4 = false;
-    bool    KeyLevel5 = false;
-    bool    KeyLevel6 = false;
-    bool    KeyLevel7 = false;
+    bool    StatusLife1 = true;
+    bool    StatusLife2 = true;
+    bool    StatusLife3 = true;
+    bool    StatusLife4 = true;
+    bool    StatusLife5 = true;
+    bool    StatusLife6 = true;
+    bool    StatusLife7 = true;
 
     bool Interaction = false;
     bool Attack = false;
@@ -88,11 +90,12 @@ private:
 
     QList<QGraphicsItem*> ListObjectsScene;
 
-    QList<Entities*> Family;
 
     int Life = 100;
+    int LifePersonaje = 100;
 
     QProgressBar *BarradeVida;
+    QProgressBar *BarradeVidaPersonaje;
     QLabel *RelationshipName;
     QLabel *Letter;
 
@@ -100,7 +103,9 @@ private:
     int DesktopX, DesktopY, DesktopWidth, DesktopHeight;
     int UIWidth, UIHeight;
 
+    Family Familiar;
     Levels Levelspa;
+
 
 
 

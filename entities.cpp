@@ -81,6 +81,9 @@ void Entities::MoveEntity(int Option)
     disconnect(TimerMove, &QTimer::timeout, this, &Entities::MoveDown);
     disconnect(TimerMove, &QTimer::timeout, this, &Entities::MoveLeft);
     disconnect(TimerMove, &QTimer::timeout, this, &Entities::MoveRight);
+//    disconnect(TimerMove, &QTimer::timeout, this, &Entities::Circulo);
+//    disconnect(TimerMove, &QTimer::timeout, this, &Entities::Rosa);
+//    disconnect(TimerMove, &QTimer::timeout, this, &Entities::RosaAlCuadrado);
 
     switch (Option) {
     case 1:
@@ -95,6 +98,15 @@ void Entities::MoveEntity(int Option)
     case 4:
         connect(TimerMove,&QTimer::timeout,this,&Entities::MoveRight);
         break;
+//    case 5:
+//        connect(TimerMove,&QTimer::timeout,this,&Entities::Circulo);
+//        break;
+//    case 6:
+//        connect(TimerMove,&QTimer::timeout,this,&Entities::Rosa);
+//        break;
+//    case 7:
+//        connect(TimerMove,&QTimer::timeout,this,&Entities::RosaAlCuadrado);
+//        break;
     }
 
 }
@@ -122,6 +134,15 @@ void Entities::StopEntity(int Option)
         PosX = PosX - Speed;
         setPos(PosX, PosY);
         break;
+//    case 5:
+//        disconnect(TimerMove,&QTimer::timeout,this,&Entities::Circulo);
+//        break;
+//    case 6:
+//        disconnect(TimerMove,&QTimer::timeout,this,&Entities::Rosa);
+//        break;
+//    case 7:
+//        disconnect(TimerMove,&QTimer::timeout,this,&Entities::RosaAlCuadrado);
+//        break;
     }
 }
 
@@ -153,7 +174,17 @@ void Entities::MoveRight()
     setPos(PosX, PosY);
 }
 
-void Entities::Circulo()
+void Entities::RandomMove(Entities *Entity, int Option)
+{
+    RandomNum = 1 + rand() % 4;
+    while (RandomNum == Option){
+        RandomNum = 1 + rand() % 4;
+    }
+    Entity->Option = RandomNum;
+    Entity->MoveEntity(RandomNum);
+}
+
+void Entities::Circulo(int PosXEntity, int PosYEntity)
 {
     r = sin(theta);
 
@@ -164,8 +195,8 @@ void Entities::Circulo()
         theta = theta + 0.001;
     }
 
-    double x = 500 + r*cos(theta);
-    double y = 500 + r*sin(theta);
+    double x = PosXEntity + r*cos(theta);
+    double y = PosYEntity + r*sin(theta);
 
     PosX = x;
     PosY = y;
@@ -174,7 +205,8 @@ void Entities::Circulo()
 
 }
 
-void Entities::Rosa()
+
+void Entities::Rosa(int PosXEntity, int PosYEntity)
 {
     r = 200*(sin(5*theta));
 
@@ -182,11 +214,11 @@ void Entities::Rosa()
         theta == 0;
     }
     else{
-        theta = theta + 0.001;
+        theta = theta + 0.005;
     }
 
-    double x = 500 + r*cos(theta);
-    double y = 500 + r*sin(theta);
+    double x = PosXEntity + r*cos(theta);
+    double y = PosYEntity + r*sin(theta);
 
     PosX = x;
     PosY = y;
@@ -195,7 +227,7 @@ void Entities::Rosa()
 
 }
 
-void Entities::RosaAlCuadrado()
+void Entities::RosaAlCuadrado(int PosXEntity, int PosYEntity)
 {
     r = (100 - (200*(sin(5*theta))));
 
@@ -203,11 +235,32 @@ void Entities::RosaAlCuadrado()
         theta == 0;
     }
     else{
-        theta = theta + 0.001;
+        theta = theta + 0.005;
     }
 
-    double x = 500+ r*cos(theta);
-    double y = 500 + r*sin(theta);
+    double x = PosXEntity + r*cos(theta);
+    double y = PosYEntity + r*sin(theta);
+
+    PosX = x;
+    PosY = y;
+
+    setPos(PosX,PosY);
+
+}
+
+void Entities::Lemniscata(int PosXEntity, int PosYEntity)
+{
+    r = (160 * cos(2 * theta));
+
+    if (theta == 360){
+        theta == 0;
+    }
+    else{
+        theta = theta + 0.005;
+    }
+
+    double x = PosXEntity + r*cos(theta);
+    double y = PosYEntity + r*sin(theta);
 
     PosX = x;
     PosY = y;

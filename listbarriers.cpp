@@ -77,12 +77,12 @@ void ListBarriers::ObjectsMap()
 
 
     MapsImage.push_back(new QImage(":/Images/Menu Temp.png"));
-    MapsImage.push_back(new QImage(":/Images/Pantalla Inicio Temporal.png"));
-    MapsImage.push_back(new QImage(":/Images/Corredor Temporal.png"));
-    MapsImage.push_back(new QImage(":/Images/Hanitacion Hermana temp.png"));
-    MapsImage.push_back(new QImage(":/Images/Cocina Temporal.png"));
-    MapsImage.push_back(new QImage(":/Images/Laboratorio temporal.png"));
-    MapsImage.push_back(new QImage(":/Images/Vestibulo temporal.png"));
+    MapsImage.push_back(new QImage(":/Images/IMGS/room.png"));
+    MapsImage.push_back(new QImage(":/Images/IMGS/corredor.png"));
+    MapsImage.push_back(new QImage(":/Images/IMGS/sisteroom.png"));
+    MapsImage.push_back(new QImage(":/Images/IMGS/cosina.png"));
+    MapsImage.push_back(new QImage(":/Images/IMGS/lav.png"));
+    MapsImage.push_back(new QImage(":/Images/IMGS/hall.png"));
 
 
     for (QList<QImage*>::iterator i = MapsImage.begin(); i != MapsImage.end(); i++) {
@@ -93,6 +93,8 @@ void ListBarriers::ObjectsMap()
         Maps.push_back(Brush);
         qDebug() << *i << "\n";
     }
+
+
 
    // Sounds.push_back(new QSoundEffect(":/Sounds/sound drop.wav"));
 

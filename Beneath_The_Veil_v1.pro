@@ -12,6 +12,7 @@ SOURCES += \
     barriers.cpp \
     entities.cpp \
     family.cpp \
+    familys.cpp \
     levels.cpp \
     listbarriers.cpp \
     main.cpp \
@@ -21,6 +22,7 @@ HEADERS += \
     barriers.h \
     entities.h \
     family.h \
+    familys.h \
     levels.h \
     listbarriers.h \
     widget.h
