@@ -248,7 +248,7 @@ void Entities::RosaAlCuadrado(int PosXEntity, int PosYEntity)
         theta == 0;
     }
     else{
-        theta = theta + 0.005;
+        theta = theta + 0.001;
     }
 
     double x = PosXEntity + r*cos(theta);
@@ -263,13 +263,13 @@ void Entities::RosaAlCuadrado(int PosXEntity, int PosYEntity)
 
 void Entities::Lemniscata(int PosXEntity, int PosYEntity)
 {
-    r = (160 * cos(2 * theta));
+    r = (180 * cos(2 * theta));
 
     if (theta == 360){
         theta == 0;
     }
     else{
-        theta = theta + 0.005;
+        theta = theta + 0.002;
     }
 
     double x = PosXEntity + r*cos(theta);

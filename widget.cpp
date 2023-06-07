@@ -110,6 +110,7 @@ Widget::Widget(QWidget *parent):
     MainMenu->addItem(Mama);
     MainMenu->addItem(Papa);
     MainMenu->addItem(Cheems);
+    MainMenu->addItem(SpecialPower);
     MainMenu->addWidget(BarradeVidaPersonaje);
     MainMenu->addWidget(RelationshipName);
     MainMenu->addWidget(BarradeVida);
@@ -127,13 +128,6 @@ Widget::Widget(QWidget *parent):
 
     Levelspa.RemoveElementsScene();
     Personaje->setVisible(false);
-
-
-
-
-
-
-
 
 }
 
@@ -447,181 +441,227 @@ void Widget::EvalueCollision()
 //-------------------------------------------------------------------------------------------------------------
 
 
-//    if (Level == 2 && Level2 == false){
-//
-//        if (Life == 100){
-//            BarradeVida->setValue(Life);
-//            BarradeVida->setVisible(true);
-//            BarradeVidaPersonaje->setValue(Life);
-//            BarradeVidaPersonaje->setVisible(true);
-//            RelationshipName->setVisible(true);
-//        }
-//        else if (Life == 0){
-//            BarradeVida->setVisible(false);
-//            RelationshipName->setVisible(false);
-//            Level2 = true;
-//            Life = 100;
-//        }
-//
-//        if (Personaje->collidesWithItem(Hermano)){
-//            Personaje->StopEntity(Option);
-//        }
-//        if (Life > 0 && Brazo->collidesWithItem(Hermano) && Attack == true){
-//            Life -= 10;
-//            BarradeVida->setValue(Life);
-//            qDebug() << Life << "\n";
-//            Attack = false;
-//        }
-//    }
-//    else if (Level == 2 && Level2 == true){
-//        if (Personaje->collidesWithItem(Hermano)){
-//            Personaje->StopEntity(Option);
-//        }
-//        StatusLife1 = false;
-//    }
-//
-//
-//    if (Level == 3 && Level3 == false){
-//
-//        if (Life == 100){
-//            BarradeVida->setValue(Life);
-//            BarradeVida->setVisible(true);
-//            BarradeVidaPersonaje->setValue(Life);
-//            BarradeVidaPersonaje->setVisible(true);
-//            RelationshipName->setText("Retsis");
-//            RelationshipName->setVisible(true);
-//        }
-//        else if (Life == 0){
-//            BarradeVida->setVisible(false);
-//            RelationshipName->setVisible(false);
-//            Level3 = true;
-//            Life = 100;
-//        }
-//
-//        if (Personaje->collidesWithItem(Hermana)){
-//            Personaje->StopEntity(Option);
-//        }
-//        if (Life > 0 && Brazo->collidesWithItem(Hermana) && Attack == true){
-//            Life -= 10;
-//            BarradeVida->setValue(Life);
-//            qDebug() << Life << "\n";
-//            Attack = false;
-//        }
-//    }
+    if (Level == 2 && Level2 == false){
 
-//    if (Level == 4 && Level4 == false){
+        if (Life == 100 && Executed1 == false){
+            BarradeVida->setValue(Life);
+            BarradeVida->setVisible(true);
+            BarradeVidaPersonaje->setValue(Life);
+            BarradeVidaPersonaje->setVisible(true);
+            RelationshipName->setVisible(true);
+            Executed1 = true;
+            SpecialPower->setVisible(true);
+        }
+        else if (Life == 0){
+            BarradeVida->setVisible(false);
+            RelationshipName->setVisible(false);
+            Level2 = true;
+            Life = 100;
+            LifePersonaje = 100;
+            SpecialPower->setVisible(false);
+        }
 
-//        if (Life == 100){
-//            BarradeVida->setValue(Life);
-//            BarradeVida->setVisible(true);
-//            BarradeVidaPersonaje->setValue(Life);
-//            BarradeVidaPersonaje->setVisible(true);
-//            RelationshipName->setText("Rehtom");
-//            RelationshipName->setVisible(true);
-//        }
-//        else if (Life == 0){
-//            BarradeVida->setVisible(false);
-//            RelationshipName->setVisible(false);
-//            Level4 = true;
-//            Life = 100;
-//        }
+        if (Personaje->collidesWithItem(Hermano)){
+            Personaje->StopEntity(Option);
+        }
+        if (Life > 0 && Brazo->collidesWithItem(Hermano) && Attack == true){
+            Life -= 10;
+            BarradeVida->setValue(Life);
+            qDebug() << Life << "\n";
+            Attack = false;
+        }
+    }
+    else if (Level == 2 && Level2 == true){
+        if (Personaje->collidesWithItem(Hermano)){
+            Personaje->StopEntity(Option);
+        }
+        StatusLife1 = false;
+    }
 
-//        if (Personaje->collidesWithItem(Mama)){
-//            Personaje->StopEntity(Option);
-//        }
-//        if (Life > 0 && Brazo->collidesWithItem(Mama) && Attack == true){
-//            Life -= 10;
-//            BarradeVida->setValue(Life);
-//            qDebug() << Life << "\n";
-//            Attack = false;
-//        }
-//    }
 
-//    if (Level == 5 && Level5 == false){
+    if (Level == 3 && Level3 == false){
 
-//        if (Life == 100){
-//            BarradeVida->setValue(Life);
-//            BarradeVida->setVisible(true);
-//            BarradeVidaPersonaje->setValue(Life);
-//            BarradeVidaPersonaje->setVisible(true);
-//            RelationshipName->setText("Rehtaf");
-//            RelationshipName->setVisible(true);
-//        }
-//        else if (Life == 0){
-//            BarradeVida->setVisible(false);
-//            RelationshipName->setVisible(false);
-//            Level5 = true;
-//            Life = 100;
-//        }
+        if (Life == 100){
+            BarradeVida->setValue(Life);
+            BarradeVida->setVisible(true);
+            BarradeVidaPersonaje->setValue(Life);
+            BarradeVidaPersonaje->setVisible(true);
+            RelationshipName->setText("Retsis");
+            RelationshipName->setVisible(true);
+            Executed2 = true;
+            SpecialPower->setVisible(true);
+        }
+        else if (Life == 0){
+            BarradeVida->setVisible(false);
+            RelationshipName->setVisible(false);
+            Level3 = true;
+            Life = 100;
+            LifePersonaje = 100;
+            SpecialPower->setVisible(false);
+        }
 
-//        if (Personaje->collidesWithItem(Papa)){
-//            Personaje->StopEntity(Option);
-//        }
-//        if (Life > 0 && Brazo->collidesWithItem(Papa) && Attack == true){
-//            Life -= 10;
-//            BarradeVida->setValue(Life);
-//            qDebug() << Life << "\n";
-//            Attack = false;
-//        }
-//    }
+        if (Personaje->collidesWithItem(Hermana)){
+            Personaje->StopEntity(Option);
+        }
+        if (Life > 0 && Brazo->collidesWithItem(Hermana) && Attack == true){
+            Life -= 10;
+            BarradeVida->setValue(Life);
+            qDebug() << Life << "\n";
+            Attack = false;
+        }
+    }
+    else if (Level == 3 && Level3 == true){
+        if (Personaje->collidesWithItem(Hermana)){
+            Personaje->StopEntity(Option);
+        }
+        StatusLife2 = false;
+    }
 
-//    if (Level == 6 && Level6 == false){
+    if (Level == 4 && Level4 == false){
 
-//        if (Life == 100){
-//            BarradeVida->setValue(Life);
-//            BarradeVida->setVisible(true);
-//            BarradeVidaPersonaje->setValue(Life);
-//            BarradeVidaPersonaje->setVisible(true);
-//            RelationshipName->setText("Smeehc");
-//            RelationshipName->setVisible(true);
-//        }
-//        else if (Life == 0){
-//            BarradeVida->setVisible(false);
-//            RelationshipName->setVisible(false);
-//            Level6 = true;
-//            Life = 100;
-//        }
+        if (Life == 100){
+            BarradeVida->setValue(Life);
+            BarradeVida->setVisible(true);
+            BarradeVidaPersonaje->setValue(Life);
+            BarradeVidaPersonaje->setVisible(true);
+            RelationshipName->setText("Rehtom");
+            RelationshipName->setVisible(true);
+            Executed3 = true;
+            SpecialPower->setVisible(true);
+        }
+        else if (Life == 0){
+            BarradeVida->setVisible(false);
+            RelationshipName->setVisible(false);
+            Level4 = true;
+            Life = 100;
+            LifePersonaje = 100;
+            SpecialPower->setVisible(false);
+        }
 
-//        if (Personaje->collidesWithItem(Cheems)){
-//            Personaje->StopEntity(Option);
-//        }
-//        if (Life > 0 && Brazo->collidesWithItem(Cheems) && Attack == true){
-//            Life -= 10;
-//            BarradeVida->setValue(Life);
-//            qDebug() << Life << "\n";
-//            Attack = false;
-//        }
-//    }
+        if (Personaje->collidesWithItem(Mama)){
+            Personaje->StopEntity(Option);
+        }
+        if (Life > 0 && Brazo->collidesWithItem(Mama) && Attack == true){
+            Life -= 10;
+            BarradeVida->setValue(Life);
+            qDebug() << Life << "\n";
+            Attack = false;
+        }
 
-//    if (EnabledKeys == false && Interaction == true){
-//        EnabledKeys = true;
-//        if (Letter->isVisible()){
-//            Letter->setVisible(false);
-//        }
-//    }
+    }
+    else if (Level == 4 && Level4 == true){
+        if (Personaje->collidesWithItem(Hermana)){
+            Personaje->StopEntity(Option);
+        }
+        StatusLife3 = false;
+    }
 
-//    if (Life < 50){
-//        MainMenu->addItem(SpecialPower);
-//    }
-//    else{
-//        MainMenu->removeItem(SpecialPower);
-//    }
-//
-//    if (Level == 2 && Life < 50){
-//        SpecialPower->Rosa(Hermano->PosX, Hermano->PosY);
-//    }
-//    else if (Level == 3 && Life < 50){
-//        SpecialPower->Lemniscata(Hermana->PosX, Hermana->PosY);
-//    }
-//    else if (Level == 4 && Life < 50){
-//        SpecialPower->Lemniscata(Mama->PosX, Mama->PosY);
-//    }
-//    else if (Level == 5 && Life < 50){
-//        SpecialPower->RosaAlCuadrado(Papa->PosX, Papa->PosY);
-//    }
-//    else if (Level == 6 && Life < 50){
-//        SpecialPower->RosaAlCuadrado(Cheems->PosX, Cheems->PosY);
-//    }
+    if (Level == 5 && Level5 == false){
+
+        if (Life == 100){
+            BarradeVida->setValue(Life);
+            BarradeVida->setVisible(true);
+            BarradeVidaPersonaje->setValue(Life);
+            BarradeVidaPersonaje->setVisible(true);
+            RelationshipName->setText("Rehtaf");
+            RelationshipName->setVisible(true);
+            Executed4 = true;
+            SpecialPower->setVisible(true);
+
+        }
+        else if (Life == 0){
+            BarradeVida->setVisible(false);
+            RelationshipName->setVisible(false);
+            Level5 = true;
+            Life = 100;
+            LifePersonaje = 100;
+            SpecialPower->setVisible(false);
+        }
+
+        if (Personaje->collidesWithItem(Papa)){
+            Personaje->StopEntity(Option);
+        }
+        if (Life > 0 && Brazo->collidesWithItem(Papa) && Attack == true){
+            Life -= 10;
+            BarradeVida->setValue(Life);
+            qDebug() << Life << "\n";
+            Attack = false;
+        }
+    }
+    else if (Level == 5 && Level5 == true){
+        if (Personaje->collidesWithItem(Hermana)){
+            Personaje->StopEntity(Option);
+        }
+        StatusLife4 = false;
+    }
+
+    if (Level == 6 && Level6 == false){
+
+        if (Life == 100){
+            BarradeVida->setValue(Life);
+            BarradeVida->setVisible(true);
+            BarradeVidaPersonaje->setValue(Life);
+            BarradeVidaPersonaje->setVisible(true);
+            RelationshipName->setText("Smeehc");
+            RelationshipName->setVisible(true);
+            Executed5 = true;
+            SpecialPower->setVisible(true);
+        }
+        else if (Life == 0){
+            BarradeVida->setVisible(false);
+            RelationshipName->setVisible(false);
+            Level6 = true;
+            Life = 100;
+            LifePersonaje = 100;
+            SpecialPower->setVisible(false);
+            EnabledKeys = false;
+            Interaction = false;
+            ui->ExitPlay->setVisible(true);
+            ui->ExitButton->setVisible(false);
+            ui->Win->setText("Has asesinado a tu familia.\n        Has Perdido!!");
+            ui->Win->setVisible(true);
+        }
+
+        if (Personaje->collidesWithItem(Cheems)){
+            Personaje->StopEntity(Option);
+        }
+        if (Life > 0 && Brazo->collidesWithItem(Cheems) && Attack == true){
+            Life -= 10;
+            BarradeVida->setValue(Life);
+            qDebug() << Life << "\n";
+            Attack = false;
+        }
+    }
+    else if (Level == 5 && Level5 == true){
+        if (Personaje->collidesWithItem(Hermana)){
+            Personaje->StopEntity(Option);
+        }
+        StatusLife4 = false;
+
+    }
+
+    if (EnabledKeys == false && Interaction == true){
+        EnabledKeys = true;
+        if (Letter->isVisible()){
+            Letter->setVisible(false);
+        }
+    }
+
+    if (Level == 2 && Life < 50){
+        SpecialPower->Rosa(Hermano->PosX, Hermano->PosY);
+    }
+    else if (Level == 3 && Life < 50){
+        SpecialPower->RosaAlCuadrado(Hermana->PosX, Hermana->PosY);
+    }
+    else if (Level == 4 && Life < 50){
+        SpecialPower->Lemniscata(Mama->PosX, Mama->PosY);
+    }
+    else if (Level == 5 && Life < 50){
+        SpecialPower->RosaAlCuadrado(Papa->PosX, Papa->PosY);
+    }
+    else if (Level == 6 && Life < 50){
+        SpecialPower->Lemniscata(Cheems->PosX, Cheems->PosY);
+    }
 
 ////    int Random = 1 + rand() % 15;
 ////    if (Level == 2 && Life > 0 && StatusLife1 == true){
@@ -632,13 +672,13 @@ void Widget::EvalueCollision()
 ////    }
 
 
-//    if(SpecialPower->collidesWithItem(Personaje) && Life < 50){
+    if(SpecialPower->collidesWithItem(Personaje) && Life < 50){
 
-//        Personaje->StopEntity(Option);
+        Personaje->StopEntity(Option);
 
-//        LifePersonaje -= 1;
-//        BarradeVidaPersonaje->setValue(LifePersonaje);
-//    }
+        LifePersonaje -= 1;
+        BarradeVidaPersonaje->setValue(LifePersonaje);
+    }
 
 
 
