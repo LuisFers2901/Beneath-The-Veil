@@ -43,10 +43,10 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>256</width>
-     <height>192</height>
+     <x>9</x>
+     <y>9</y>
+     <width>1901</width>
+     <height>1061</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -60,6 +60,80 @@
      <width>1920</width>
      <height>1080</height>
     </size>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="PlayButton">
+   <property name="geometry">
+    <rect>
+     <x>870</x>
+     <y>810</y>
+     <width>181</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>41</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Play</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ExitButton">
+   <property name="geometry">
+    <rect>
+     <x>1849</x>
+     <y>20</y>
+     <width>51</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>SALIR</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Win">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>110</y>
+     <width>801</width>
+     <height>371</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>60</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>No heriste a tu familia.
+        Has Ganado!!</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ExitPlay">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>810</x>
+     <y>630</y>
+     <width>291</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>36</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Salir</string>
    </property>
   </widget>
  </widget>

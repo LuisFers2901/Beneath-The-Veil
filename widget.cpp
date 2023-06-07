@@ -8,6 +8,11 @@ Widget::Widget(QWidget *parent):
 
 {
     ui->setupUi(this);
+    connect(ui->ExitButton, SIGNAL(clicked()), this, SLOT(close()));
+    connect(ui->PlayButton, SIGNAL(clicked()), this, SLOT(on_PlayButton_clicked()));
+    connect(ui->ExitPlay, SIGNAL(clicked()), this, SLOT(close()));
+    ui->ExitPlay->setVisible(false);
+    ui->Win->setVisible(false);
     QScreen* primaryScreen = QApplication::primaryScreen();
     QRect Desktop = primaryScreen->geometry();
     showFullScreen();
@@ -29,13 +34,13 @@ Widget::Widget(QWidget *parent):
     ui->graphicsView->setScene(MainMenu);
 
     Personaje = new Entities(450, 700, 80, 96, 10, 1, 120, 1, nullptr);
-    Hermano = new Entities(1490, 440, 80, 96, 10, 2, 65, 20, nullptr);
-    Hermana = new Entities(350, 350, 80, 96, 10, 3, 65, 5, nullptr);
-    Mama = new Entities(1350, 520, 80, 96, 10, 4, 65, 5, nullptr);
-    Papa = new Entities(370, 810, 80, 96, 10, 5, 65, 5, nullptr);
-    Cheems = new Entities(1640, 440, 80, 96, 10, 6, 65, 5, nullptr);
-    Brazo = new Entities(550, 710, 20, 10, 10, 2, 65, 5, nullptr);
-    SpecialPower = new Entities(550, 710, 25, 20, 10, 2, 65, 5, nullptr);
+    Hermano = new Entities(1200, 800, 80, 96, 10, 2, 120, 20, nullptr);
+    Hermana = new Entities(350, 350, 80, 96, 10, 3, 120, 5, nullptr);
+    Mama = new Entities(1350, 520, 80, 96, 10, 4, 120, 5, nullptr);
+    Papa = new Entities(370, 810, 80, 96, 10, 5, 120, 5, nullptr);
+    Cheems = new Entities(1640, 440, 120, 150, 10, 6, 120, 5, nullptr);
+    Brazo = new Entities(550, 710, 20, 10, 10, 2, 120, 5, nullptr);
+    SpecialPower = new Entities(550, 710, 25, 20, 10, 7, 120, 5, nullptr);
 
 
     BarradeVida = new QProgressBar(nullptr);
@@ -95,6 +100,7 @@ Widget::Widget(QWidget *parent):
     ListObjectsScene = MainMenu->items();
 
     Levelspa = Levels(MainMenu, Personaje);
+    Levelspa.GameLevels(0);
 
 
 
@@ -117,11 +123,15 @@ Widget::Widget(QWidget *parent):
     for (auto paredes : BarriersMaps.Paredes){
         MainMenu->addItem(paredes);
     }
+    EnabledKeys = false;
 
-    Levelspa.GameLevels(1);
+    Levelspa.RemoveElementsScene();
+    Personaje->setVisible(false);
 
 
-    connect(Personaje->TimerMove, &QTimer::timeout, this, &Widget::EvalueCollision);
+
+
+
 
 
 
@@ -130,6 +140,12 @@ Widget::Widget(QWidget *parent):
 Widget::~Widget()
 {
     delete ui;
+    delete Personaje;
+    delete Hermano;
+    delete Hermana;
+    delete Mama;
+    delete Papa;
+    delete Cheems;
 }
 
 void Widget::keyPressEvent(QKeyEvent *evento)
@@ -185,10 +201,10 @@ void Widget::EvalueCollision()
     }
 
     if(Option == 3){
-        Brazo->X = Personaje->PosX - 35;
+        Brazo->X = Personaje->PosX - 50;
     }
     else if (Option == 4){
-        Brazo->X = Personaje->PosX + 35;
+        Brazo->X = Personaje->PosX + 50;
     }
     Brazo->Y = Personaje->PosY;
     Brazo->setPos(Brazo->X, Brazo->Y);
@@ -200,13 +216,10 @@ void Widget::EvalueCollision()
             //Eliminar el background anterior
 
             Levelspa.GameLevels(2);
-            if (Level2 == false){
-
-                MainMenu->addItem(BarriersMaps.Objetos[0]);
-            }
             Hermano->setVisible(true);
+            Personaje->setVisible(true);
 
-            Personaje->PosX = 100;
+            Personaje->PosX = 113;
             Personaje->setPos(Personaje->PosX, Personaje->PosY);
             Level = 2;
         }
@@ -218,7 +231,7 @@ void Widget::EvalueCollision()
             //Eliminar el background anterior
 
             Levelspa.GameLevels(1);
-            Personaje->PosX = 1825;
+            Personaje->PosX = 1800;
             Personaje->setPos(Personaje->PosX, Personaje->PosY);
             Level = 1;
         }
@@ -231,10 +244,7 @@ void Widget::EvalueCollision()
 
             Levelspa.GameLevels(3);
             Hermana->setVisible(true);
-            if (Level3 == false){
-                MainMenu->addItem(BarriersMaps.Objetos[1]);
-            }
-            Personaje->PosY = 975;
+            Personaje->PosY = 950;
             Personaje->setPos(Personaje->PosX, Personaje->PosY);
             Level = 3;
         }
@@ -251,7 +261,7 @@ void Widget::EvalueCollision()
             if (Level4 == false){
                 MainMenu->addItem(BarriersMaps.Objetos[2]);
             }
-            Personaje->PosX = 100;
+            Personaje->PosX = 120;
             Personaje->setPos(Personaje->PosX, Personaje->PosY);
             Level = 4;
         }
@@ -287,7 +297,7 @@ void Widget::EvalueCollision()
 
             Levelspa.GameLevels(2);
             Hermano->setVisible(true);
-            Personaje->PosY = 125;
+            Personaje->PosY = 500;
             Personaje->setPos(Personaje->PosX, Personaje->PosY);
             Level = 2;
         }
@@ -296,7 +306,6 @@ void Widget::EvalueCollision()
         }
         if (Personaje->collidesWithItem(BarriersMaps.Objetos[1]) && Interaction == true && Level3 == false){
             Level3 = true;
-            MainMenu->removeItem(BarriersMaps.Objetos[1]);
             Letter->setVisible(true);
             EnabledKeys = false;
             Interaction = false;
@@ -332,10 +341,8 @@ void Widget::EvalueCollision()
 
             Levelspa.GameLevels(5);
             Papa->setVisible(true);
-            if(Level5 == false){
-                MainMenu->addItem(BarriersMaps.Objetos[3]);
-            }
-            Personaje->PosY = 200;
+            Personaje->PosY = 830;
+            Personaje->PosX = 1620;
             Personaje->setPos(Personaje->PosX, Personaje->PosY);
             Level = 5;
         }
@@ -349,10 +356,8 @@ void Widget::EvalueCollision()
 
             Levelspa.GameLevels(6);
             Cheems->setVisible(true);
-            if (Level6 == false){
-                MainMenu->addItem(BarriersMaps.Objetos[4]);
-            }
             Personaje->PosX = 100;
+            Personaje->PosY = 500;
             Personaje->setPos(Personaje->PosX, Personaje->PosY);
             Level = 6;
         }
@@ -362,7 +367,6 @@ void Widget::EvalueCollision()
 
         if (Personaje->collidesWithItem(BarriersMaps.Objetos[2]) && Interaction == true && Level4 == false){
             Level4 = true;
-            MainMenu->removeItem(BarriersMaps.Objetos[2]);
             Letter->setVisible(true);
             EnabledKeys = false;
             Interaction = false;
@@ -385,7 +389,8 @@ void Widget::EvalueCollision()
 
             Levelspa.GameLevels(4);
             Mama->setVisible(true);
-            Personaje->PosY = 975;
+            Personaje->PosY = 500;
+            Personaje->PosX = 1250;
             Personaje->setPos(Personaje->PosX, Personaje->PosY);
             Level = 4;
         }
@@ -394,7 +399,6 @@ void Widget::EvalueCollision()
         }
         if (Personaje->collidesWithItem(BarriersMaps.Objetos[3]) && Interaction == true && Level5 == false){
             Level5 = true;
-            MainMenu->removeItem(BarriersMaps.Objetos[3]);
             Letter->setVisible(true);
             EnabledKeys = false;
             Interaction = false;
@@ -403,6 +407,7 @@ void Widget::EvalueCollision()
             if (Interaction == true){
                 EnabledKeys = true;
                 Letter->setVisible(false); //Cambiar letter po una imagen del escrito y anadir audio de nino llorando desesperadamente
+                Letter->setText("“Ahora todo tiene sentido, en realidad era mi familia.”");
             }
         }
 
@@ -414,7 +419,8 @@ void Widget::EvalueCollision()
             //Eliminar el background anterior
             Levelspa.GameLevels(4);
             Mama->setVisible(true);
-            Personaje->PosX = 1800;
+            Personaje->PosX = 1570;
+            Personaje->PosY = 766;
             Personaje->setPos(Personaje->PosX, Personaje->PosY);
             Level = 4;
         }
@@ -424,6 +430,13 @@ void Widget::EvalueCollision()
         if (Personaje->collidesWithItem(BarriersMaps.Objetos[4]) && Interaction == true && Level6 == false){
             Level6 = true;
             MainMenu->removeItem(BarriersMaps.Objetos[4]);
+            Letter->setVisible(true);
+            EnabledKeys = false;
+            Interaction = false;
+            Cheems->Sprite = 8;
+            ui->ExitPlay->setVisible(true);
+            ui->ExitButton->setVisible(false);
+            ui->Win->setVisible(true);
         }
 
         break;
@@ -431,8 +444,11 @@ void Widget::EvalueCollision()
 
     }
 
-//    if (Level == 2 && Level2 == false){
+//-------------------------------------------------------------------------------------------------------------
 
+
+//    if (Level == 2 && Level2 == false){
+//
 //        if (Life == 100){
 //            BarradeVida->setValue(Life);
 //            BarradeVida->setVisible(true);
@@ -446,7 +462,7 @@ void Widget::EvalueCollision()
 //            Level2 = true;
 //            Life = 100;
 //        }
-
+//
 //        if (Personaje->collidesWithItem(Hermano)){
 //            Personaje->StopEntity(Option);
 //        }
@@ -463,10 +479,10 @@ void Widget::EvalueCollision()
 //        }
 //        StatusLife1 = false;
 //    }
-
-
+//
+//
 //    if (Level == 3 && Level3 == false){
-
+//
 //        if (Life == 100){
 //            BarradeVida->setValue(Life);
 //            BarradeVida->setVisible(true);
@@ -481,7 +497,7 @@ void Widget::EvalueCollision()
 //            Level3 = true;
 //            Life = 100;
 //        }
-
+//
 //        if (Personaje->collidesWithItem(Hermana)){
 //            Personaje->StopEntity(Option);
 //        }
@@ -590,7 +606,7 @@ void Widget::EvalueCollision()
 //    else{
 //        MainMenu->removeItem(SpecialPower);
 //    }
-
+//
 //    if (Level == 2 && Life < 50){
 //        SpecialPower->Rosa(Hermano->PosX, Hermano->PosY);
 //    }
@@ -627,3 +643,13 @@ void Widget::EvalueCollision()
 
 
 }
+
+void Widget::on_PlayButton_clicked()
+{
+    Levelspa.GameLevels(1);
+    connect(Personaje->TimerMove, &QTimer::timeout, this, &Widget::EvalueCollision);
+    ui->PlayButton->setVisible(false);
+    Personaje->setVisible(true);
+    EnabledKeys = true;
+}
+

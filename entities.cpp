@@ -56,14 +56,53 @@ void Entities::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         PosYPixMap = (96 * 4);
         break;
     case 6:
-        PosYPixMap = (96 * 5);
+        PosYPixMap = 559;
         break;
+    case 7:
+        painter->setBrush(Qt::darkGreen);
+        painter->drawRect(boundingRect());
+        break;
+    case 8:
+        PosYPixMap = 719;
+        break;
+
     }
 
+//    switch (Sprite) {
+//    case 1:
+//        painter->setBrush(Qt::blue);
+//        painter->drawRect(boundingRect());
+//        break;
+//    case 2:
+//        painter->setBrush(Qt::red);
+//        painter->drawRect(boundingRect());
+//        break;
+//    case 3:
+//        painter->setBrush(Qt::magenta);
+//        painter->drawRect(boundingRect());
+//        break;
+//    case 4:
+//        painter->setBrush(Qt::darkMagenta);
+//        painter->drawRect(boundingRect());
+//        break;
+//    case 5:
+//        painter->setBrush(Qt::darkGray);
+//        painter->drawRect(boundingRect());
+//        break;
+//    case 6:
+//        painter->setBrush(Qt::darkGreen);
+//        painter->drawRect(boundingRect());
+//        break;
+//    }
 
+    if (Sprite == 6 || Sprite == 8){
+        NumberSprite = 3;
+    }
 
+    if (Sprite != 7){
 
-    painter->drawPixmap((-WidthSprite)/2, (-HeightSprite)/2, *PixMap, PosXPixMap, PosYPixMap, WidthSprite, HeightSprite);
+        painter->drawPixmap((-WidthSprite)/2, (-HeightSprite)/2, *PixMap, PosXPixMap, PosYPixMap, WidthSprite, HeightSprite);
+    }
 
 }
 
@@ -188,7 +227,7 @@ void Entities::Rosa(int PosXEntity, int PosYEntity)
         theta == 0;
     }
     else{
-        theta = theta + 0.005;
+        theta = theta + 0.001;
     }
 
     double x = PosXEntity + r*cos(theta);
@@ -259,8 +298,8 @@ void Entities::Persecution(int PosXPacMan, int PosYPacMan, int PosXGhost, int Po
 
 void Entities::RefreshSprite()
 {
-    PosXPixMap += 80;
-    if (PosXPixMap >= (NumberSprite * 80) + StartPosXPixMap){
+    PosXPixMap += WidthSprite;
+    if (PosXPixMap >= (NumberSprite * WidthSprite) + StartPosXPixMap){
         PosXPixMap = StartPosXPixMap;
     }
     this->update((-WidthSprite)/2, (-HeightSprite)/2, WidthSprite, HeightSprite);

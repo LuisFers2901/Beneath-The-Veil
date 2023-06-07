@@ -37,31 +37,31 @@ void Levels::GameLevels(int LevelSelect)
         break;
     case 1:     //Carcel
         Scene->setBackgroundBrush(*OptionLevels.Maps[1]);
-        Scene->addItem(OptionLevels.Door[0]);
+        OptionLevels.Door[0]->setVisible(true);
         break;
     case 2:     //Corredor
         Scene->setBackgroundBrush(*OptionLevels.Maps[2]);
-        Scene->addItem(OptionLevels.Door[1]);
-        Scene->addItem(OptionLevels.Door[2]);
-        Scene->addItem(OptionLevels.Door[3]);
+        OptionLevels.Door[1]->setVisible(true);
+        OptionLevels.Door[2]->setVisible(true);
+        OptionLevels.Door[3]->setVisible(true);
         break;
     case 3:     //Habitacion Hermana
         Scene->setBackgroundBrush(*OptionLevels.Maps[3]);
-        Scene->addItem(OptionLevels.Door[4]);
+        OptionLevels.Door[4]->setVisible(true);
         break;
     case 4:     //Cocina
         Scene->setBackgroundBrush(*OptionLevels.Maps[4]);
-        Scene->addItem(OptionLevels.Door[5]);
-        Scene->addItem(OptionLevels.Door[6]);
-        Scene->addItem(OptionLevels.Door[7]);
+        OptionLevels.Door[5]->setVisible(true);
+        OptionLevels.Door[6]->setVisible(true);
+        OptionLevels.Door[7]->setVisible(true);
         break;
     case 5:     //Laboratorio
         Scene->setBackgroundBrush(*OptionLevels.Maps[5]);
-        Scene->addItem(OptionLevels.Door[8]);
+        OptionLevels.Door[8]->setVisible(true);
         break;
     case 6:     //Vestibulo
         Scene->setBackgroundBrush(*OptionLevels.Maps[6]);
-        Scene->addItem(OptionLevels.Door[9]);
+        OptionLevels.Door[9]->setVisible(true);
         break;
     }
 }

@@ -23,38 +23,38 @@ void ListBarriers::ObjectsMap()
     Paredes.push_back(new Barriers(0, 1041, 1920, 43, 1));
 
     //Carcel
-    Door.push_back(new Barriers(1851, 400, 28, 265, 2));
+    Door.push_back(new Barriers(1850, 500, 28, 265, 2));
     //Corredor
-    Door.push_back(new Barriers(45, 400, 28, 265, 2));
-    Door.push_back(new Barriers(1386, 44, 295, 53, 2));
-    Door.push_back(new Barriers(1870, 760, 28, 230, 2));
+    Door.push_back(new Barriers(0, 572, 59, 209, 2));
+    Door.push_back(new Barriers(730, 90, 230, 350, 2));
+    Door.push_back(new Barriers(1865, 672, 50, 260, 2));
     //Habitacion Hermana
-    Door.push_back(new Barriers(1386, 1006, 295, 53, 2));
+    Door.push_back(new Barriers(730, 1006, 230, 53, 2));
     //Cocina
-    Door.push_back(new Barriers(45, 760, 28, 230, 2));
-    Door.push_back(new Barriers(1386, 1000, 295, 53, 2));
-    Door.push_back(new Barriers(1851, 400, 28, 265, 2));
+    Door.push_back(new Barriers(0, 846, 80, 206, 2));
+    Door.push_back(new Barriers(1242, 90, 319, 345, 2));
+    Door.push_back(new Barriers(1550, 1020, 311, 38, 2));
     //Laboratorio
-    Door.push_back(new Barriers(1386, 44, 295, 53, 2));
+    Door.push_back(new Barriers(1620, 990, 192, 92, 2));
     //Vestibulo
-    Door.push_back(new Barriers(45, 400, 28, 265, 2));
+    Door.push_back(new Barriers(30, 0, 189, 347, 2));
 
     //----------------------------Objetos----------------------------
 
     //Corredor
-    Objetos.push_back(new Barriers(1800, 160, 50, 50, 3));
+    Objetos.push_back(new Barriers(1733, 461, 138, 90, 3));
 
     //Habitacion Hermana
-    Objetos.push_back(new Barriers(100, 100, 50, 50, 4));
+    Objetos.push_back(new Barriers(1647, 255, 99, 136, 4));
 
     //Cocina
-    Objetos.push_back(new Barriers(1740, 910, 50, 50, 5));
+    Objetos.push_back(new Barriers(337, 930, 170, 109, 5));
 
     //Laboratorio
-    Objetos.push_back(new Barriers(130, 960, 50, 50, 6));
+    Objetos.push_back(new Barriers(37, 165, 141, 167, 6));
 
     //Vestibulo
-    Objetos.push_back(new Barriers(150, 125, 50, 50, 7));
+    Objetos.push_back(new Barriers(1667, 901, 200, 150, 7));
 
     //----------------------------Llaves----------------------------
 

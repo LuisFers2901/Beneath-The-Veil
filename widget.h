@@ -43,6 +43,9 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 
+private slots:
+    void on_PlayButton_clicked();
+
 private:
     Ui::Widget *ui;
     QGraphicsScene *MainMenu;
@@ -81,6 +84,14 @@ private:
     bool    StatusLife5 = true;
     bool    StatusLife6 = true;
     bool    StatusLife7 = true;
+
+    bool    Executed1 = false;
+    bool    Executed2 = false;
+    bool    Executed3 = false;
+    bool    Executed4 = false;
+    bool    Executed5 = false;
+    bool    Executed6 = false;
+    bool    Executed7 = false;
 
     bool Interaction = false;
     bool Attack = false;
