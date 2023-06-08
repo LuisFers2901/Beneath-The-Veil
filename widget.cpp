@@ -7,6 +7,7 @@ Widget::Widget(QWidget *parent):
     ui(new Ui::Widget)
 
 {
+
     ui->setupUi(this);
     connect(ui->ExitButton, SIGNAL(clicked()), this, SLOT(close()));
     connect(ui->PlayButton, SIGNAL(clicked()), this, SLOT(on_PlayButton_clicked()));
@@ -22,6 +23,11 @@ Widget::Widget(QWidget *parent):
     DesktopWidth = Desktop.width();
     DesktopHeight = Desktop.height();
 
+    QPixmap IconFile(":/Images/icono.png");
+    QIcon Icon(IconFile);
+    setWindowIcon(Icon);
+    setWindowTitle("Beneath The Veil");
+
     DesktopWidth = 1280;
     DesktopHeight = 720;
     UIWidth = ui->graphicsView->width()-2;
@@ -33,7 +39,7 @@ Widget::Widget(QWidget *parent):
 
     ui->graphicsView->setScene(MainMenu);
 
-    Personaje = new Entities(450, 700, 80, 96, 10, 1, 120, 1, nullptr);
+    Personaje = new Entities(450, 700, 80, 96, 0.5, 1, 120, 1, nullptr);
     Hermano = new Entities(1200, 800, 80, 96, 10, 2, 120, 20, nullptr);
     Hermana = new Entities(350, 350, 80, 96, 10, 3, 120, 5, nullptr);
     Mama = new Entities(1350, 520, 80, 96, 10, 4, 120, 5, nullptr);
@@ -144,29 +150,42 @@ Widget::~Widget()
 
 void Widget::keyPressEvent(QKeyEvent *evento)
 {
+
     //qDebug() << "X: " << Personaje->PosX << "   Y: " << Personaje->PosY << "\n";
 
-    if (EnabledKeys == true && (evento->key() == Qt::Key_W || evento->key() == Qt::Key_Up)){
-        Personaje->MoveUp();
-//        Personaje->MoveEntity(1);
+    if ((EnabledKeys == true && Jump == false) && (evento->key() == Qt::Key_W || evento->key() == Qt::Key_Up)){
+        lastposicion= 0;
+        Personaje->Speed=1;
+        //        Personaje->MoveUp();
+        Personaje->MoveEntity(1);
         Option = 1;
     }
-    else if (EnabledKeys == true && (evento->key() == Qt::Key_S || evento->key() == Qt::Key_Down)){
-        Personaje->MoveDown();
-//        Personaje->MoveEntity(2);
+    else if ((EnabledKeys == true && Jump == false) && (evento->key() == Qt::Key_S || evento->key() == Qt::Key_Down)){
+        lastposicion= 0;
+        Personaje->Speed=1;
+        //        Personaje->MoveDown();
+        Personaje->MoveEntity(2);
         Option = 2;
     }
-    else if (EnabledKeys == true && (evento->key() == Qt::Key_A || evento->key() == Qt::Key_Left)){
-        Personaje->MoveLeft();
-//        Personaje->MoveEntity(3);
+    else if((EnabledKeys == true && Jump == false) && (evento->key() == Qt::Key_A || evento->key() == Qt::Key_Left)){
+        lastposicion= 0;
+        Personaje->Speed=1;
+        //        Personaje->MoveLeft();
+        Personaje->MoveEntity(3);
         Option = 3;
     }
-    else if (EnabledKeys == true && (evento->key() == Qt::Key_D || evento->key() == Qt::Key_Right)){
-        Personaje->MoveRight();
-//        Personaje->MoveEntity(4);
+    else if ((EnabledKeys == true && Jump == false) && (evento->key() == Qt::Key_D || evento->key() == Qt::Key_Right)){
+        lastposicion= 0;
+        Personaje->Speed=1;
+        //        Personaje->MoveRight();
+        Personaje->MoveEntity(4);
         Option = 4;
-    }  
-
+    }
+    else if ((EnabledKeys == true && Jump == false) && (evento->key() == Qt::Key_M)){
+        lastposicion= 0;
+        Jump = true;
+        momentum=Personaje->PosY;
+    }
     if (evento->key() == Qt::Key_J){
         Interaction = true;
     }
@@ -183,14 +202,91 @@ void Widget::keyPressEvent(QKeyEvent *evento)
     }
 }
 
+
 void Widget::EvalueCollision()
 {
+    altitud = Personaje->PosY;
+    if((Jump == true)&&(altitud <= momentum)){
+        if (Option == 2){
+            distancia = Personaje->PosX;
+            altitud = Personaje->PosY;
+            veldistacia = speed*cos(angulo);
+            velaltitud = speed*sin(angulo)-9.8*tiempo;
+            altitud -= velaltitud*tiempo-0.5*9.5*pow(tiempo,2);
+            speed = sqrt(pow(veldistacia,2)+pow(velaltitud,2));
+            angulo=atan2(velaltitud,veldistacia);
+            Personaje->PosY=altitud;
+        }
+        else if (Option == 1){
+            Jump=false;
+            rebote = false;
+            distancia = Personaje->PosX;
+            altitud = Personaje->PosY;
+            veldistacia = speed*cos(angulo);
+            velaltitud = speed*sin(angulo)-9.8*tiempo;
+            altitud -= velaltitud*tiempo-0.5*9.5*pow(tiempo,2);
+            speed = sqrt(pow(veldistacia,2)+pow(velaltitud,2));
+            angulo=atan2(velaltitud,veldistacia);
+            Personaje->PosY=altitud;
+        }
+        else if (Option == 3){
+            distancia = Personaje->PosX;
+            altitud = Personaje->PosY;
+            veldistacia = speed*cos(angulo);
+            velaltitud = speed*sin(angulo)-9.8*tiempo;
+            if(rebote==true)
+                distancia =distancia + (veldistacia*tiempo);
+            else
+                distancia =distancia - (veldistacia*tiempo);
+            altitud -= velaltitud*tiempo-0.5*9.5*pow(tiempo,2);
+            speed = sqrt(pow(veldistacia,2)+pow(velaltitud,2));
+            angulo=atan2(velaltitud,veldistacia);
+            Personaje->PosX=distancia;
+            Personaje->PosY=altitud;
+            Personaje->setPos(distancia,altitud);
+            //  Personaje->Speed=1;
+        }
+        else if (Option == 4){
+            altitud = Personaje->PosY;
+            distancia = Personaje->PosX;
+            veldistacia = speed*cos(angulo);
+            velaltitud = speed*sin(angulo)-9.8*tiempo;
+            if(rebote==true)
+                distancia =distancia - (veldistacia*tiempo);
+            else
+                distancia =distancia + (veldistacia*tiempo);
+            altitud -= velaltitud*tiempo-0.5*9.5*pow(tiempo,2);
+            speed = sqrt(pow(veldistacia,2)+pow(velaltitud,2));
+            angulo=atan2(velaltitud,veldistacia);
+            Personaje->PosX=distancia;
+            Personaje->PosY=altitud;
+            Personaje->setPos(distancia,altitud);
+                //       Personaje->Speed=1;
+        }
+    }
+
+    else{
+        angulo=45;
+        speed= (Personaje->Speed)*30;
+        Jump=false;
+        rebote=false;
+    }
+    if((lastposicion != 0)&&(Jump==false)){
+        Personaje->Speed+=0.0005;
+    }
+    else{
+        lastposicion= 1;
+    }
     for (auto paredes : BarriersMaps.Paredes) {
         if(paredes->collidesWithItem(Personaje)){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
         if(paredes->collidesWithItem(Hermano)){
             Hermano->StopEntity(Hermano->Option);
+            rebote=true;
+            lastposicion=0;
         }
     }
 
@@ -231,6 +327,8 @@ void Widget::EvalueCollision()
         }
         else if (Personaje->collidesWithItem(BarriersMaps.Door[1]) && Level2 == false){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
 
         if (Personaje->collidesWithItem(BarriersMaps.Door[2]) && Level2 == true){
@@ -245,6 +343,8 @@ void Widget::EvalueCollision()
 
         else if (Personaje->collidesWithItem(BarriersMaps.Door[2]) && Level2 == false){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
 
         if (Personaje->collidesWithItem(BarriersMaps.Door[3]) && Level3 == true){
@@ -262,6 +362,8 @@ void Widget::EvalueCollision()
 
         else if (Personaje->collidesWithItem(BarriersMaps.Door[3]) && Level3 == false){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
 
         if (Personaje->collidesWithItem(BarriersMaps.Objetos[0]) && Interaction == true && Level2 == false){
@@ -297,6 +399,8 @@ void Widget::EvalueCollision()
         }
         else if (Personaje->collidesWithItem(BarriersMaps.Door[4]) && Level3 == false){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
         if (Personaje->collidesWithItem(BarriersMaps.Objetos[1]) && Interaction == true && Level3 == false){
             Level3 = true;
@@ -328,6 +432,8 @@ void Widget::EvalueCollision()
         }
         else if (Personaje->collidesWithItem(BarriersMaps.Door[5]) && Level4 == false){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
 
         if (Personaje->collidesWithItem(BarriersMaps.Door[6]) && Level4 == true){
@@ -343,6 +449,8 @@ void Widget::EvalueCollision()
 
         else if (Personaje->collidesWithItem(BarriersMaps.Door[6]) && Level4 == false){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
 
         if (Personaje->collidesWithItem(BarriersMaps.Door[7]) && Level5 == true){
@@ -357,6 +465,8 @@ void Widget::EvalueCollision()
         }
         else if (Personaje->collidesWithItem(BarriersMaps.Door[7]) && Level6 == false){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
 
         if (Personaje->collidesWithItem(BarriersMaps.Objetos[2]) && Interaction == true && Level4 == false){
@@ -390,6 +500,8 @@ void Widget::EvalueCollision()
         }
         else if (Personaje->collidesWithItem(BarriersMaps.Door[8]) && Level5 == false){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
         if (Personaje->collidesWithItem(BarriersMaps.Objetos[3]) && Interaction == true && Level5 == false){
             Level5 = true;
@@ -420,6 +532,8 @@ void Widget::EvalueCollision()
         }
         else if (Personaje->collidesWithItem(BarriersMaps.Door[9]) && Level6 == false){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
         if (Personaje->collidesWithItem(BarriersMaps.Objetos[4]) && Interaction == true && Level6 == false){
             Level6 = true;
@@ -463,6 +577,8 @@ void Widget::EvalueCollision()
 
         if (Personaje->collidesWithItem(Hermano)){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
         if (Life > 0 && Brazo->collidesWithItem(Hermano) && Attack == true){
             Life -= 10;
@@ -474,6 +590,8 @@ void Widget::EvalueCollision()
     else if (Level == 2 && Level2 == true){
         if (Personaje->collidesWithItem(Hermano)){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
         StatusLife1 = false;
     }
@@ -502,6 +620,8 @@ void Widget::EvalueCollision()
 
         if (Personaje->collidesWithItem(Hermana)){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
         if (Life > 0 && Brazo->collidesWithItem(Hermana) && Attack == true){
             Life -= 10;
@@ -513,6 +633,8 @@ void Widget::EvalueCollision()
     else if (Level == 3 && Level3 == true){
         if (Personaje->collidesWithItem(Hermana)){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
         StatusLife2 = false;
     }
@@ -540,6 +662,8 @@ void Widget::EvalueCollision()
 
         if (Personaje->collidesWithItem(Mama)){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
         if (Life > 0 && Brazo->collidesWithItem(Mama) && Attack == true){
             Life -= 10;
@@ -552,6 +676,8 @@ void Widget::EvalueCollision()
     else if (Level == 4 && Level4 == true){
         if (Personaje->collidesWithItem(Hermana)){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
         StatusLife3 = false;
     }
@@ -580,6 +706,8 @@ void Widget::EvalueCollision()
 
         if (Personaje->collidesWithItem(Papa)){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
         if (Life > 0 && Brazo->collidesWithItem(Papa) && Attack == true){
             Life -= 10;
@@ -591,6 +719,8 @@ void Widget::EvalueCollision()
     else if (Level == 5 && Level5 == true){
         if (Personaje->collidesWithItem(Hermana)){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
         StatusLife4 = false;
     }
@@ -624,6 +754,8 @@ void Widget::EvalueCollision()
 
         if (Personaje->collidesWithItem(Cheems)){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
         if (Life > 0 && Brazo->collidesWithItem(Cheems) && Attack == true){
             Life -= 10;
@@ -635,6 +767,8 @@ void Widget::EvalueCollision()
     else if (Level == 5 && Level5 == true){
         if (Personaje->collidesWithItem(Hermana)){
             Personaje->StopEntity(Option);
+            rebote=true;
+            lastposicion=0;
         }
         StatusLife4 = false;
 
@@ -675,9 +809,21 @@ void Widget::EvalueCollision()
     if(SpecialPower->collidesWithItem(Personaje) && Life < 50){
 
         Personaje->StopEntity(Option);
+        rebote=true;
+        lastposicion=0;
 
         LifePersonaje -= 1;
         BarradeVidaPersonaje->setValue(LifePersonaje);
+    }
+
+    if (LifePersonaje == 0){
+
+        EnabledKeys = false;
+        Interaction = false;
+        ui->ExitPlay->setVisible(true);
+        ui->ExitButton->setVisible(false);
+        ui->Win->setText("Has Perdido, no \nsupistes poner pared");
+        ui->Win->setVisible(true);
     }
 
 

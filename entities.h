@@ -9,6 +9,7 @@
 #include <cmath>
 #include <random>
 
+#define tiempo 0.1
 
 class Entities: public QObject, public QGraphicsItem
 {
@@ -16,11 +17,11 @@ class Entities: public QObject, public QGraphicsItem
 public:
 
     QTimer *TimerSprite, *TimerMove;
-
+    float Speed;
     QPixmap *PixMap;
-    int X, Y, PosX, PosY, Speed, Columns, WidthSprite, HeightSprite, RandomNum;
+    int X, Y, PosX, PosY, Columns, WidthSprite, HeightSprite, RandomNum;
     int Sprite, TimerS, TimerM,PosXPixMap, PosYPixMap, Option, SpriteOp, StartPosXPixMap, NumberSprite;
-    Entities(int PosX, int PosY, int WidthSprite, int HeightSprite, int Speed, int Sprite, int TimerS, int TimerM, QObject *parent); //Inicializa las varaibles necesarias para crear la entidad
+    Entities(int PosX, int PosY, int WidthSprite, int HeightSprite, float Speed, int Sprite, int TimerS, int TimerM, QObject *parent); //Inicializa las varaibles necesarias para crear la entidad
     QRectF boundingRect() const;                //Genera la hitbox de la entidad
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);//, const QString& ImagePath, int X, int Y, int NumSprites); //Toma la imagen e indiica la posicion y tamano del sprite
 

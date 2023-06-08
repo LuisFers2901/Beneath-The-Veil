@@ -1,6 +1,6 @@
 #include "entities.h"
 
-Entities::Entities(int PosX, int PosY, int WidthSprite, int HeightSprite, int Speed, int Sprite, int TimerS, int TimerM, QObject *parent)
+Entities::Entities(int PosX, int PosY, int WidthSprite, int HeightSprite, float Speed, int Sprite, int TimerS, int TimerM, QObject *parent)
 {
 
     this->PosX = PosX;
@@ -248,7 +248,7 @@ void Entities::RosaAlCuadrado(int PosXEntity, int PosYEntity)
         theta == 0;
     }
     else{
-        theta = theta + 0.001;
+        theta = theta + 0.0005;
     }
 
     double x = PosXEntity + r*cos(theta);

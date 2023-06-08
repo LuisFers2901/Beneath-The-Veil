@@ -54,11 +54,13 @@ private:
     QBrush br1, br2;
 
     int Level = 1;
-    int Option;
 
 
     void keyPressEvent(QKeyEvent *evento);
     void EvalueCollision();
+    float speed;
+    int Option, lastposicion, acceleration;
+    double altitud, velaltitud, distancia, veldistacia, angulo,momentum;
 
     Entities *Personaje;
     Entities *Hermano;
@@ -93,6 +95,8 @@ private:
     bool    Executed6 = false;
     bool    Executed7 = false;
 
+    bool Jump= false;
+    bool rebote = false;
     bool Interaction = false;
     bool Attack = false;
     bool EnabledKeys = true;
